@@ -32,6 +32,7 @@ action_size = brain.vector_action_space_size
 states = env_info.vector_observations
 state_size = states.shape[1]
 
+# Setting up hyperparameters
 class Config():
     def __init__(self):
         self.state_size=  env_info.vector_observations.shape[1]
@@ -45,24 +46,21 @@ class Config():
         self.batch_size = 128
         self.lr_actor = 1e-4
         self.lr_critic = 1e-4
-        self.discount_rate = 0.99           # discount factor
+        self.discount_rate = 0.99           
         self.tau = 1e-3    
         self.weight_decay = 0
 config = Config()
 
 
-# In[3]:
-
 from collections import deque
 import matplotlib.pyplot as plt
-# get_ipython().run_line_magic('matplotlib', 'inline')
 
 from ddpg_agent import Agent
 agent = Agent(state_size=state_size, action_size=action_size, random_seed=1, config=config)
-# agent = (state_size=state_size, action_size=action_size, random_seed=1)
 
 from tqdm import tqdm
 
+# Defining the main training loop.
 def ddpg(n_episodes=300, max_t=1000):
     scores_deque = deque(maxlen=100)
     scores = []
@@ -100,19 +98,11 @@ def ddpg(n_episodes=300, max_t=1000):
             print('\rEpisode {}\tAverage Score: {:.2f}'.format(i_episode, np.mean(scores_deque)))   
     return scores
 
-# scores = ddpg(n_episodes=config.episode_count)
-
-# fig = plt.figure()
-# ax = fig.add_subplot(111)
-# plt.plot(np.arange(1, len(scores)+1), scores)
-# plt.ylabel('Score')
-# plt.xlabel('Episode #')
-# plt.show()
 
 
-
-agent.actor_local.load_state_dict(torch.load('checkpoint_actor.pth'))
-agent.critic_local.load_state_dict(torch.load('checkpoint_critic.pth'))
+# Load available weights if needed to play a demo round
+# agent.actor_local.load_state_dict(torch.load('checkpoint_actor.pth'))
+# agent.critic_local.load_state_dict(torch.load('checkpoint_critic.pth'))
 
 def play_round(env, brain_name, policy, config):
     env_info = env.reset(train_mode=False)[brain_name]    
@@ -133,4 +123,17 @@ def play_round(env, brain_name, policy, config):
     
 current_score = play_round(env, brain_name, agent.act, config)    
 print('score this round: {}'.format(current_score))
+
+# RUn the training loop
+scores = ddpg(n_episodes=config.episode_count)
+
+#Plot rewards
+fig = plt.figure()
+ax = fig.add_subplot(111)
+plt.plot(np.arange(1, len(scores)+1), scores)
+plt.ylabel('Score')
+plt.xlabel('Episode #')
+plt.show()
+
+
 env.close()
