@@ -23,6 +23,7 @@ Training and demo:
 The file continuous_control_ddpg.py is the main python file used to load the environment, instantiate and train and agent. The function play_round can be used to demonstrate a learned agent.
 
 Weight files are also included for a fully trained agent.
+Here are the average scores over training episodes:
 
-image::https://github.com/hummosa/Policy-Gradient-Classics-pytorch/blob/master/DDPG_training_scores.png
+![Training curve](https://raw.githubusercontent.com/hummosa/Policy-Gradient-Classics-pytorch/master/DDPG_training_scores.png)
     :scale: 50 %
