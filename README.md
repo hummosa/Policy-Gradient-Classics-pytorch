@@ -26,4 +26,4 @@ Weight files are also included for a fully trained agent.
 Here are the average scores over training episodes:
 
 ![Training curve](https://raw.githubusercontent.com/hummosa/Policy-Gradient-Classics-pytorch/master/DDPG_training_scores.png)
-    :scale: 50 %
+
