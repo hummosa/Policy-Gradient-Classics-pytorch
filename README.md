@@ -24,3 +24,5 @@ The file continuous_control_ddpg.py is the main python file used to load the env
 
 Weight files are also included for a fully trained agent.
 
+image::https://github.com/hummosa/Policy-Gradient-Classics-pytorch/blob/master/DDPG_training_scores.png
+    :scale: 50 %
