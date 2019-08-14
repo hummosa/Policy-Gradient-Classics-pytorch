@@ -4,6 +4,10 @@ This repository is an implementation of the reinforcement learning algorithm DDP
 
 #### Unity [Reacher](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#reacher) environment:
 
+The environment simulates an arm with two joints. The goal of the task is to keep the tip of the arm inside a spherical target region, rotating around the arm. The environment provides a reward of +0.1 for each time step the agent maintains its tip within the spherical target region. The state of the environment is represented in a vector of 33 values representing the position and velocities of the arm segments.  
+
+The environment is continuous rather than episodic but can easily be sampled to a desired episode length without information loss as it’s a generally stationary environment. The action space is continuous, which constrain our choice of algorithm to solve it. The environment is considered solved when achieving a score of >30 on 100 consecutive episodes over all 20 agents. This project uses the 20 -agent version of the environment.  
+
 
 To run the enviornment locally a few required packages are necessary.
 
